@@ -4,7 +4,7 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
-import rehypePrettyCode from "rehype-pretty-code";
+import rehypeHighlight from "rehype-highlight";
 import { getPostBySlug } from "@utils/content";
 import { extractToc } from "@utils/markdown";
 import { mdxComponents } from "@components/MdxComponents";
@@ -77,7 +77,7 @@ export function ArticlePage() {
         <div className="prose-content">
           <ReactMarkdown
             remarkPlugins={[remarkGfm, remarkMath]}
-            rehypePlugins={[rehypeKatex, [rehypePrettyCode, { theme: "github-dark" }]]}
+            rehypePlugins={[rehypeKatex, rehypeHighlight]}
             components={mdxComponents}
           >
             {content}
