@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Menu } from "lucide-react";
+import { Menu, Sun, Moon } from "lucide-react";
 import { Drawer } from "@components/Drawer";
 import character from "@/assets/character.png";
 import { NavTree } from "./NavTree";
+import { useTheme } from "@/contexts/ThemeContext";
 
 export function Header() {
   const [open, setOpen] = useState(false);
+  const { dark, toggle } = useTheme();
 
   return (
     <>
@@ -24,8 +26,13 @@ export function Header() {
           <span className="text-base font-bold text-[var(--color-foreground)]">mokiru</span>
         </Link>
 
-        {/* 오른쪽 여백 (버튼 너비만큼) */}
-        <div className="w-9" />
+        <button
+          onClick={toggle}
+          className="rounded-md p-1.5 text-[var(--color-muted-foreground)] hover:bg-[var(--color-muted)] transition-colors"
+          aria-label={dark ? "라이트 모드로 전환" : "다크 모드로 전환"}
+        >
+          {dark ? <Sun size={20} /> : <Moon size={20} />}
+        </button>
       </header>
 
       <Drawer open={open} onOpenChange={setOpen} side="left" title="목차">
