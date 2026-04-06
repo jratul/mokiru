@@ -27,13 +27,17 @@ export function getRecentBySubject(subject: "math" | "science", count = 5): Post
 }
 
 export function getPostBySlug(slug: string): { meta: PostMeta; content: string } | null {
-  const filePath = `/content${slug}.md`;
-  const raw = modules[filePath];
-  if (!raw) return null;
+  const candidates = [`/content${slug}.md`, `/content${slug}/index.md`];
 
-  const { data, content } = matter(raw);
-  return {
-    meta: { ...(data as Omit<PostMeta, "slug">), slug },
-    content,
-  };
+  for (const filePath of candidates) {
+    const raw = modules[filePath];
+    if (!raw) continue;
+    const { data, content } = matter(raw);
+    return {
+      meta: { ...(data as Omit<PostMeta, "slug">), slug },
+      content,
+    };
+  }
+
+  return null;
 }
