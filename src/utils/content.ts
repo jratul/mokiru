@@ -1,4 +1,4 @@
-import matter from "gray-matter";
+import { parseFrontmatter } from "./frontmatter";
 import type { PostMeta } from "@t/content";
 
 const modules = import.meta.glob("/content/**/*.md", {
@@ -14,7 +14,7 @@ function pathToSlug(filePath: string): string {
 export function getAllPosts(): PostMeta[] {
   return Object.entries(modules)
     .map(([filePath, raw]) => {
-      const { data } = matter(raw);
+      const { data } = parseFrontmatter(raw);
       return { ...(data as Omit<PostMeta, "slug">), slug: pathToSlug(filePath) };
     })
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
@@ -32,7 +32,7 @@ export function getPostBySlug(slug: string): { meta: PostMeta; content: string }
   for (const filePath of candidates) {
     const raw = modules[filePath];
     if (!raw) continue;
-    const { data, content } = matter(raw);
+    const { data, content } = parseFrontmatter(raw);
     return {
       meta: { ...(data as Omit<PostMeta, "slug">), slug },
       content,
