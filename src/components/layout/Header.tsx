@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Menu, Sun, Moon } from "lucide-react";
+import { Menu, Sun, Moon, Search } from "lucide-react";
 import { Drawer } from "@components/Drawer";
 import character from "@/assets/character.png";
 import { NavTree } from "./NavTree";
@@ -26,13 +26,22 @@ export function Header() {
           <span className="text-base font-bold text-[var(--color-foreground)]">mokiru</span>
         </Link>
 
-        <button
-          onClick={toggle}
-          className="rounded-md p-1.5 text-[var(--color-muted-foreground)] hover:bg-[var(--color-muted)] transition-colors"
-          aria-label={dark ? "라이트 모드로 전환" : "다크 모드로 전환"}
-        >
-          {dark ? <Sun size={20} /> : <Moon size={20} />}
-        </button>
+        <div className="flex items-center gap-1">
+          <Link
+            to="/search"
+            className="rounded-md p-1.5 text-[var(--color-muted-foreground)] hover:bg-[var(--color-muted)] transition-colors"
+            aria-label="검색"
+          >
+            <Search size={20} />
+          </Link>
+          <button
+            onClick={toggle}
+            className="rounded-md p-1.5 text-[var(--color-muted-foreground)] hover:bg-[var(--color-muted)] transition-colors"
+            aria-label={dark ? "라이트 모드로 전환" : "다크 모드로 전환"}
+          >
+            {dark ? <Sun size={20} /> : <Moon size={20} />}
+          </button>
+        </div>
       </header>
 
       <Drawer open={open} onOpenChange={setOpen} side="left" title="목차">

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Sun, Moon } from "lucide-react";
+import { Sun, Moon, Search } from "lucide-react";
 import character from "@/assets/character.png";
 import { NavTree } from "./NavTree";
 import { useTheme } from "@/contexts/ThemeContext";
@@ -17,6 +17,17 @@ export function Sidebar() {
         <img src={character} alt="mokiru" className="w-8 h-8 rounded-lg object-cover" />
         <span className="text-lg font-bold text-[var(--color-foreground)]">mokiru</span>
       </Link>
+
+      {/* 검색 */}
+      <div className="px-3 py-2 border-b border-[var(--color-border)] shrink-0">
+        <Link
+          to="/search"
+          className="flex items-center gap-2 w-full rounded-md px-3 py-2 text-sm text-[var(--color-muted-foreground)] bg-[var(--color-muted)] hover:text-[var(--color-foreground)] transition-colors"
+        >
+          <Search size={14} />
+          검색...
+        </Link>
+      </div>
 
       {/* 네비게이션 */}
       <div className="flex-1 overflow-y-auto px-2 py-4">
