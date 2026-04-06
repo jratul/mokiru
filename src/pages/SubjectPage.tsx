@@ -57,7 +57,7 @@ export function SubjectPage() {
   return (
     <div className="mx-auto max-w-3xl px-4 py-10">
       <Helmet>
-        <title>{section.label} | mokiru</title>
+        <title>모키루 | {section.label}</title>
         <meta name="description" content={`${section.label} 전체 목차`} />
       </Helmet>
 

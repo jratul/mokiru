@@ -42,7 +42,7 @@ export function ArticlePage() {
   return (
     <>
       <Helmet>
-        <title>{meta.title} | mokiru</title>
+        <title>모키루 | {meta.title}</title>
         <meta name="description" content={meta.description} />
       </Helmet>
 

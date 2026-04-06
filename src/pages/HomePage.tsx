@@ -85,7 +85,7 @@ export function HomePage() {
   return (
     <div className="mx-auto max-w-3xl px-4 py-10">
       <Helmet>
-        <title>mokiru — 수학·과학 학습 사이트</title>
+        <title>모키루 — 수학·과학 학습 사이트</title>
         <meta name="description" content="수학과 과학을 처음부터 제대로. 중학교부터 대학 전공까지." />
       </Helmet>
       <div className="mb-10 text-center">

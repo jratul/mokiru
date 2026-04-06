@@ -64,7 +64,7 @@ export function SearchPage() {
   return (
     <>
       <Helmet>
-        <title>{query ? `"${query}" 검색 결과 | mokiru` : "검색 | mokiru"}</title>
+        <title>{query ? `모키루 | "${query}" 검색 결과` : "모키루 | 검색"}</title>
       </Helmet>
 
       <div className="mx-auto max-w-2xl px-4 py-10">
