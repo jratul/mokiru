@@ -38,7 +38,7 @@ export function Drawer({ open: openProp, onOpenChange, side = "left", title, chi
                 transition={{ duration: 0.2 }}
               />
             </DialogPrimitive.Overlay>
-            <DialogPrimitive.Content asChild>
+            <DialogPrimitive.Content asChild aria-describedby={undefined}>
               <motion.div
                 className={cn(
                   "fixed top-0 bottom-0 z-50 w-72 flex flex-col",
