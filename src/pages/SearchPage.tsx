@@ -1,5 +1,4 @@
 import { useSearchParams, Link } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
 import { Search } from "lucide-react";
 import { searchPosts } from "@utils/search";
 import { cn } from "@utils/cn";
@@ -63,9 +62,7 @@ export function SearchPage() {
 
   return (
     <>
-      <Helmet>
-        <title>{query ? `모키루 | "${query}" 검색 결과` : "모키루 | 검색"}</title>
-      </Helmet>
+      <title>{query ? `모키루 | "${query}" 검색 결과` : "모키루 | 검색"}</title>
 
       <div className="mx-auto max-w-2xl px-4 py-10">
         <h1 className="text-2xl font-bold text-[var(--color-foreground)] mb-6">검색</h1>

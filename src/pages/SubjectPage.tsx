@@ -1,5 +1,4 @@
 import { useParams, Link, Navigate } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
 import { navigation } from "@/config/navigation";
 import { cn } from "@utils/cn";
 import type { NavItem } from "@t/navigation";
@@ -56,10 +55,8 @@ export function SubjectPage() {
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-10">
-      <Helmet>
-        <title>모키루 | {section.label}</title>
-        <meta name="description" content={`${section.label} 전체 목차`} />
-      </Helmet>
+      <title>모키루 | {section.label}</title>
+      <meta name="description" content={`${section.label} 전체 목차`} />
 
       <h1 className="text-3xl font-bold text-[var(--color-foreground)] mb-8">
         {emoji} {section.label}

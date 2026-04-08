@@ -1,5 +1,4 @@
 import { useLocation } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
@@ -41,10 +40,8 @@ export function ArticlePage() {
 
   return (
     <>
-      <Helmet>
-        <title>모키루 | {meta.title}</title>
-        <meta name="description" content={meta.description} />
-      </Helmet>
+      <title>모키루 | {meta.title}</title>
+      <meta name="description" content={meta.description} />
 
       <article className="mx-auto max-w-3xl">
         {/* 헤더 */}
