@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useDocumentTitle } from "@hooks/useDocumentTitle";
 import { getRecentBySubject } from "@utils/content";
 import { cn } from "@utils/cn";
 import type { PostMeta } from "@t/content";
@@ -81,10 +82,10 @@ function SubjectSection({
 }
 
 export function HomePage() {
+  useDocumentTitle("모키루 — 수학·과학 학습 사이트");
+
   return (
     <div className="mx-auto max-w-3xl px-4 py-10">
-      <title>모키루 — 수학·과학 학습 사이트</title>
-      <meta name="description" content="수학과 과학을 처음부터 제대로. 중학교부터 대학 전공까지." />
       <div className="mb-10 text-center">
         <h1 className="text-3xl font-bold text-[var(--color-foreground)]">mokiru</h1>
         <p className="mt-2 text-sm text-[var(--color-muted-foreground)]">

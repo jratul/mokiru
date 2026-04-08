@@ -1,5 +1,7 @@
 import { useParams, Link, Navigate } from "react-router-dom";
 import { navigation } from "@/config/navigation";
+import { useDocumentTitle } from "@hooks/useDocumentTitle";
+import type { NavSection } from "@t/navigation";
 import { cn } from "@utils/cn";
 import type { NavItem } from "@t/navigation";
 
@@ -45,19 +47,12 @@ const SUBJECT_EMOJI: Record<string, string> = {
   science: "🔬",
 };
 
-export function SubjectPage() {
-  const { subject } = useParams<{ subject: string }>();
-  const section = navigation.find((s) => s.id === subject);
-
-  if (!section) return <Navigate to="/" replace />;
-
-  const emoji = SUBJECT_EMOJI[subject ?? ""] ?? "";
+function SubjectContent({ section }: { section: NavSection }) {
+  const emoji = SUBJECT_EMOJI[section.id] ?? "";
+  useDocumentTitle(`모키루 | ${section.label}`);
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-10">
-      <title>모키루 | {section.label}</title>
-      <meta name="description" content={`${section.label} 전체 목차`} />
-
       <h1 className="text-3xl font-bold text-[var(--color-foreground)] mb-8">
         {emoji} {section.label}
       </h1>
@@ -73,4 +68,13 @@ export function SubjectPage() {
       </div>
     </div>
   );
+}
+
+export function SubjectPage() {
+  const { subject } = useParams<{ subject: string }>();
+  const section = navigation.find((s) => s.id === subject);
+
+  if (!section) return <Navigate to="/" replace />;
+
+  return <SubjectContent section={section} />;
 }
