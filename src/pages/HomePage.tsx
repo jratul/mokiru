@@ -51,7 +51,7 @@ function SubjectSection({
   label: string;
   subject: "math" | "science";
 }) {
-  const posts = getRecentBySubject(subject, 5);
+  const posts = getRecentBySubject(subject, 12);
 
   return (
     <section className="flex flex-col gap-3">
@@ -69,7 +69,7 @@ function SubjectSection({
       {posts.length === 0 ? (
         <p className="text-sm text-[var(--color-muted-foreground)] px-1">아직 글이 없습니다.</p>
       ) : (
-        <ul className="flex flex-col gap-2">
+        <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2">
           {posts.map((post) => (
             <li key={post.slug}>
               <PostCard post={post} />
@@ -85,7 +85,7 @@ export function HomePage() {
   useDocumentTitle("모키루 — 수학·과학 학습 사이트");
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-10">
+    <div className="mx-auto max-w-5xl px-4 py-10">
       <div className="mb-10 text-center">
         <h1 className="text-3xl font-bold text-[var(--color-foreground)]">mokiru</h1>
         <p className="mt-2 text-sm text-[var(--color-muted-foreground)]">
