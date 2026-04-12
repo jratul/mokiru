@@ -28,7 +28,7 @@ function ArticleContent({ meta, content }: { meta: PostMeta; content: string }) 
 
   return (
     <>
-      <article className="mx-auto max-w-3xl">
+      <article className="mx-auto max-w-4xl">
         <header className="mb-8 pb-6 border-b border-[var(--color-border)]">
           <div className="flex items-center gap-2 mb-3">
             <span className="text-xs font-medium text-[var(--color-primary)] bg-[var(--color-primary)]/10 rounded-md px-2 py-0.5">

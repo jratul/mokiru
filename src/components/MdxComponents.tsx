@@ -1,8 +1,9 @@
 /* eslint-disable react-refresh/only-export-components */
-import { isValidElement, type ReactNode, type ReactElement } from "react";
+import { isValidElement, Children, type ReactNode, type ReactElement } from "react";
 import type { Components } from "react-markdown";
 import { cn } from "@utils/cn";
 import { slugify } from "@utils/markdown";
+import { ChartBlock } from "./ChartBlock";
 
 function extractText(node: ReactNode): string {
   if (typeof node === "string" || typeof node === "number") return String(node);
@@ -90,10 +91,18 @@ export const mdxComponents: Components = {
   strong: ({ children }) => (
     <strong className="font-semibold text-[var(--color-foreground)]">{children}</strong>
   ),
-  // 인라인 코드
+  // 인라인 코드 + chart 블록
   code: ({ children, className }) => {
+    if (className?.includes("language-chart")) {
+      const raw = typeof children === "string" ? children : String(children ?? "");
+      try {
+        const config = JSON.parse(raw.trim());
+        return <ChartBlock config={config} />;
+      } catch {
+        // fallthrough to plain code block
+      }
+    }
     if (className) {
-      // 블록 코드 — rehype-pretty-code가 처리
       return <code className={className}>{children}</code>;
     }
     return (
@@ -102,19 +111,29 @@ export const mdxComponents: Components = {
       </code>
     );
   },
-  // 블록 코드 래퍼
-  pre: ({ children, ...props }) => (
-    <pre
-      className={cn(
-        "overflow-x-auto rounded-xl border border-[var(--color-border)]",
-        "bg-[var(--color-muted)] p-4 text-sm my-5",
-        "[&>code]:bg-transparent [&>code]:p-0",
-      )}
-      {...props}
-    >
-      {children}
-    </pre>
-  ),
+  // 블록 코드 래퍼 — chart 블록이면 pre 스타일 제거
+  pre: ({ children, ...props }) => {
+    const isChart = Children.toArray(children).some((child) => {
+      if (isValidElement(child)) {
+        const el = child as ReactElement<{ className?: string }>;
+        return el.props?.className?.includes("language-chart");
+      }
+      return false;
+    });
+    if (isChart) return <>{children}</>;
+    return (
+      <pre
+        className={cn(
+          "overflow-x-auto rounded-xl border border-[var(--color-border)]",
+          "bg-[var(--color-muted)] p-4 text-sm my-5",
+          "[&>code]:bg-transparent [&>code]:p-0",
+        )}
+        {...props}
+      >
+        {children}
+      </pre>
+    );
+  },
   // 테이블
   table: ({ children }) => (
     <div className="overflow-x-auto my-5">

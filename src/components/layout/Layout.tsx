@@ -21,7 +21,7 @@ export function Layout({ children, toc }: LayoutProps) {
         {/* 모바일 헤더 높이만큼 상단 여백 */}
         <div className="lg:hidden h-14" />
 
-        <main className="mx-auto max-w-3xl px-6 py-8">
+        <main className="mx-auto max-w-4xl px-6 py-8">
           {children}
         </main>
       </div>
