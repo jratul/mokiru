@@ -43,6 +43,36 @@ $$
 - 너무 작으면: 수렴 매우 느림
 - 최적: 손실 경관에 따라 다르며 보통 0.001~0.1
 
+아래 그래프는 학습률에 따라 손실이 어떻게 달라지는지 보여준다. 최적 학습률은 빠르게 수렴하지만, 큰 학습률은 진동하고 작은 학습률은 너무 느리다.
+
+```chart
+{
+  "type": "line",
+  "title": "학습률별 손실 수렴 비교",
+  "height": 300,
+  "data": [
+    {"iter": 0, "small": 10.0, "optimal": 10.0, "large": 10.0},
+    {"iter": 1, "small": 9.3, "optimal": 5.0, "large": 1.5},
+    {"iter": 2, "small": 8.6, "optimal": 2.5, "large": 8.5},
+    {"iter": 3, "small": 8.0, "optimal": 1.2, "large": 0.8},
+    {"iter": 4, "small": 7.4, "optimal": 0.6, "large": 9.2},
+    {"iter": 5, "small": 6.9, "optimal": 0.3, "large": 1.2},
+    {"iter": 6, "small": 6.4, "optimal": 0.15, "large": 8.8},
+    {"iter": 7, "small": 5.9, "optimal": 0.07, "large": 0.9},
+    {"iter": 8, "small": 5.5, "optimal": 0.04, "large": 9.5},
+    {"iter": 9, "small": 5.1, "optimal": 0.02, "large": 1.0}
+  ],
+  "xKey": "iter",
+  "xLabel": "반복 횟수",
+  "yLabel": "손실(Loss)",
+  "series": [
+    {"key": "small", "name": "작은 학습률 (η=0.001)", "color": "#3b82f6"},
+    {"key": "optimal", "name": "최적 학습률 (η=0.1)", "color": "#22c55e"},
+    {"key": "large", "name": "큰 학습률 (η=0.5, 발산)", "color": "#ef4444"}
+  ]
+}
+```
+
 ### 배치 방식
 
 | 방법 | 그래디언트 계산 | 특징 |
@@ -124,6 +154,36 @@ $$
 
 **AdamW**: Adam + 가중치 감쇠(Weight Decay). 정규화를 그래디언트가 아닌 가중치에 직접 적용.
 
+아래는 SGD, SGD+모멘텀, Adam의 수렴 속도 비교다. Adam이 가장 빠르게 낮은 손실에 도달한다.
+
+```chart
+{
+  "type": "line",
+  "title": "옵티마이저별 수렴 비교 (SGD / Momentum / Adam)",
+  "height": 300,
+  "data": [
+    {"iter": 0, "sgd": 10.0, "momentum": 10.0, "adam": 10.0},
+    {"iter": 2, "sgd": 7.2, "momentum": 4.5, "adam": 3.0},
+    {"iter": 4, "sgd": 5.2, "momentum": 1.8, "adam": 0.7},
+    {"iter": 6, "sgd": 3.7, "momentum": 0.7, "adam": 0.18},
+    {"iter": 8, "sgd": 2.7, "momentum": 0.3, "adam": 0.045},
+    {"iter": 10, "sgd": 2.0, "momentum": 0.14, "adam": 0.013},
+    {"iter": 12, "sgd": 1.5, "momentum": 0.08, "adam": 0.004},
+    {"iter": 14, "sgd": 1.1, "momentum": 0.05, "adam": 0.001},
+    {"iter": 16, "sgd": 0.9, "momentum": 0.035, "adam": 0.0005},
+    {"iter": 18, "sgd": 0.7, "momentum": 0.025, "adam": 0.0003}
+  ],
+  "xKey": "iter",
+  "xLabel": "반복 횟수",
+  "yLabel": "손실(Loss)",
+  "series": [
+    {"key": "sgd", "name": "SGD", "color": "#ef4444"},
+    {"key": "momentum", "name": "SGD + 모멘텀", "color": "#f97316"},
+    {"key": "adam", "name": "Adam", "color": "#22c55e"}
+  ]
+}
+```
+
 ---
 
 ## 학습률 스케줄링
@@ -135,6 +195,37 @@ $$
 | 스텝 감쇠 | $\eta \leftarrow \eta \times \gamma^{\lfloor t/T\rfloor}$ | 단순 감소 |
 | 코사인 어닐링 | $\eta_t = \eta_{\min} + \frac{\eta_{\max}-\eta_{\min}}{2}(1+\cos\frac{t\pi}{T})$ | 주기적 재시작 |
 | 웜업 | $\eta$를 처음에 선형 증가 후 감소 | Transformer 표준 |
+
+각 스케줄에 따라 학습률이 어떻게 변하는지 비교:
+
+```chart
+{
+  "type": "line",
+  "title": "학습률 스케줄 비교",
+  "height": 280,
+  "data": [
+    {"epoch": 0,   "step": 0.1,   "cosine": 0.1,    "warmup": 0.0},
+    {"epoch": 10,  "step": 0.1,   "cosine": 0.0976, "warmup": 0.05},
+    {"epoch": 20,  "step": 0.1,   "cosine": 0.0905, "warmup": 0.1},
+    {"epoch": 30,  "step": 0.1,   "cosine": 0.0794, "warmup": 0.088},
+    {"epoch": 40,  "step": 0.1,   "cosine": 0.0655, "warmup": 0.073},
+    {"epoch": 50,  "step": 0.01,  "cosine": 0.05,   "warmup": 0.056},
+    {"epoch": 60,  "step": 0.01,  "cosine": 0.0345, "warmup": 0.038},
+    {"epoch": 70,  "step": 0.01,  "cosine": 0.0206, "warmup": 0.023},
+    {"epoch": 80,  "step": 0.01,  "cosine": 0.0095, "warmup": 0.011},
+    {"epoch": 90,  "step": 0.01,  "cosine": 0.0024, "warmup": 0.003},
+    {"epoch": 100, "step": 0.001, "cosine": 0.0,    "warmup": 0.0}
+  ],
+  "xKey": "epoch",
+  "xLabel": "에포크",
+  "yLabel": "학습률 η",
+  "series": [
+    {"key": "step", "name": "스텝 감쇠", "color": "#ef4444"},
+    {"key": "cosine", "name": "코사인 어닐링", "color": "#3b82f6"},
+    {"key": "warmup", "name": "웜업 + 감쇠", "color": "#a855f7"}
+  ]
+}
+```
 
 ---
 
@@ -165,6 +256,36 @@ $$
 **예**: $L(\theta) = \|\theta\|^2$ (L2 정규화) — 강볼록.
 
 딥러닝 손실은 일반적으로 볼록이 아니지만, 실제로는 경사하강법이 잘 작동한다 (과매개변수화(overparameterization)의 암묵적 볼록성 효과).
+
+아래 그래프는 볼록 함수 $f(x) = x^2$와 비볼록 함수 $g(x) = x^4 - 4x^2$의 차이를 보여준다. 비볼록 함수는 국소 최솟값이 여러 개 존재한다.
+
+```chart
+{
+  "type": "line",
+  "title": "볼록 함수 vs 비볼록 함수",
+  "height": 300,
+  "data": [
+    {"x": -3, "convex": 9,  "nonconvex": 45},
+    {"x": -2, "convex": 4,  "nonconvex": 0},
+    {"x": -1.5, "convex": 2.25, "nonconvex": -3.9375},
+    {"x": -1, "convex": 1,  "nonconvex": -3},
+    {"x": -0.5, "convex": 0.25, "nonconvex": -0.9375},
+    {"x": 0,  "convex": 0,  "nonconvex": 0},
+    {"x": 0.5, "convex": 0.25, "nonconvex": -0.9375},
+    {"x": 1,  "convex": 1,  "nonconvex": -3},
+    {"x": 1.5, "convex": 2.25, "nonconvex": -3.9375},
+    {"x": 2,  "convex": 4,  "nonconvex": 0},
+    {"x": 3,  "convex": 9,  "nonconvex": 45}
+  ],
+  "xKey": "x",
+  "xLabel": "x",
+  "yLabel": "f(x)",
+  "series": [
+    {"key": "convex", "name": "볼록 함수 f(x)=x² (전역 최솟값 1개)", "color": "#22c55e"},
+    {"key": "nonconvex", "name": "비볼록 f(x)=x⁴−4x² (국소 최솟값 2개)", "color": "#ef4444"}
+  ]
+}
+```
 
 ---
 
