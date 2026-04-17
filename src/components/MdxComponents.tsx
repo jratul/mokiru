@@ -18,12 +18,14 @@ function Heading({
   level,
   children,
   className,
+  id: idProp,
 }: {
   level: 2 | 3 | 4;
   children: ReactNode;
   className?: string;
+  id?: string;
 }) {
-  const id = slugify(extractText(children));
+  const id = idProp ?? slugify(extractText(children));
   const Tag = `h${level}` as "h2" | "h3" | "h4";
   return (
     <Tag id={id} className={className}>
@@ -43,18 +45,18 @@ export const mdxComponents: Components = {
       {children}
     </h1>
   ),
-  h2: ({ children }) => (
-    <Heading level={2} className="text-2xl font-bold text-[var(--color-foreground)] mt-10 mb-3 scroll-mt-20">
+  h2: ({ children, id }) => (
+    <Heading level={2} className="text-2xl font-bold text-[var(--color-foreground)] mt-10 mb-3 scroll-mt-20" id={id}>
       {children}
     </Heading>
   ),
-  h3: ({ children }) => (
-    <Heading level={3} className="text-xl font-semibold text-[var(--color-foreground)] mt-7 mb-2 scroll-mt-20">
+  h3: ({ children, id }) => (
+    <Heading level={3} className="text-xl font-semibold text-[var(--color-foreground)] mt-7 mb-2 scroll-mt-20" id={id}>
       {children}
     </Heading>
   ),
-  h4: ({ children }) => (
-    <Heading level={4} className="text-base font-semibold text-[var(--color-foreground)] mt-5 mb-1 scroll-mt-20">
+  h4: ({ children, id }) => (
+    <Heading level={4} className="text-base font-semibold text-[var(--color-foreground)] mt-5 mb-1 scroll-mt-20" id={id}>
       {children}
     </Heading>
   ),

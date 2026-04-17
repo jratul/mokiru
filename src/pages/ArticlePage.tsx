@@ -5,7 +5,7 @@ import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 import rehypeHighlight from "rehype-highlight";
 import { getPostBySlug } from "@utils/content";
-import { extractToc } from "@utils/markdown";
+import { extractToc, rehypeHeadingIds } from "@utils/markdown";
 import { mdxComponents } from "@components/MdxComponents";
 import { TableOfContents } from "@components/layout/TableOfContents";
 import { useActiveHeading } from "@hooks/useActiveHeading";
@@ -57,7 +57,7 @@ function ArticleContent({ meta, content }: { meta: PostMeta; content: string }) 
         <div className="prose-content">
           <ReactMarkdown
             remarkPlugins={[remarkGfm, remarkMath]}
-            rehypePlugins={[rehypeKatex, rehypeHighlight]}
+            rehypePlugins={[rehypeHeadingIds, rehypeKatex, rehypeHighlight]}
             components={mdxComponents}
           >
             {content}
