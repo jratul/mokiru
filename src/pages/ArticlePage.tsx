@@ -84,5 +84,5 @@ export function ArticlePage() {
     );
   }
 
-  return <ArticleContent meta={post.meta} content={post.content} />;
+  return <ArticleContent key={pathname} meta={post.meta} content={post.content} />;
 }
