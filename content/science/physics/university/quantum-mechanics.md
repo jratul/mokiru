@@ -103,43 +103,6 @@ $$\langle x \rangle = \int_{-\infty}^{\infty} x|\Psi|^2\,dx, \quad \langle p \ra
 
 ---
 
-## 파동함수와 확률 해석
-
-### 파동함수 $\Psi(x,t)$
-
-입자의 상태를 완전히 기술하는 복소 함수.
-
-**보른의 확률 해석**:
-
-$$
-|\Psi(x,t)|^2 = \text{위치 } x\text{에서 } t\text{에 입자를 발견할 확률 밀도}
-$$
-
-**정규화 조건**:
-
-$$
-\int_{-\infty}^{\infty}|\Psi(x,t)|^2\,dx = 1
-$$
-
-**기댓값**:
-
-$$
-\langle x \rangle = \int x|\Psi|^2\,dx, \quad \langle p \rangle = \int \Psi^* \left(-i\hbar\frac{\partial}{\partial x}\right)\Psi\,dx
-$$
-
-### 연산자와 관측량
-
-양자역학에서 물리량 → 에르미트 연산자(hermitian operator).
-
-| 물리량 | 연산자 |
-|-------|-------|
-| 위치 $x$ | $\hat{x} = x$ (곱하기) |
-| 운동량 $p_x$ | $\hat{p}_x = -i\hbar\dfrac{\partial}{\partial x}$ |
-| 운동 에너지 | $\hat{T} = -\dfrac{\hbar^2}{2m}\nabla^2$ |
-| 에너지 (해밀토니안) | $\hat{H} = \hat{T} + \hat{V}$ |
-
----
-
 ## 불확정성 원리
 
 ### 하이젠베르크 불확정성 원리
