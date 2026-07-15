@@ -60,6 +60,14 @@ const SmilesDrawer = lazy(() => import("smiles-drawer"));
 
 mokona-ui에 있는 컴포넌트는 반드시 mokona-ui에서 가져온다.
 
+> `mokona-ui/styles.css`는 `main.tsx`에 실제로 import되어 있다(CSS 변수는 이 패키지가
+> `:root`/`.dark`에 정의하며, `src/index.css`에는 더 이상 손으로 옮긴 사본이 없다). 다만
+> `mokona-ui/styles.css`가 Pretendard를 jsDelivr CDN에서 불러오는 `@import`를 내장하고
+> 있어서, 이 프로젝트가 `pretendard` 패키지로 이미 self-hosting 중인 폰트와 중복 요청되는
+> 문제가 있었다 — `vite.config.ts`의 `stripMokonaCdnFontImport` 플러그인이 빌드 타임에
+> 그 `@import` 줄만 제거한다. 실제 컴포넌트(`Button`, `Card` 등)는 아직 프로젝트 코드에서
+> import되지 않은 상태 — 지금까지는 CSS 변수/스타일만 가져다 쓰고 있다.
+
 사용 가능한 컴포넌트:
 - **Foundation**: `Button`, `Text`, `Divider`
 - **Input**: `TextField`, `Checkbox`, `Toggle`

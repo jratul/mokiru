@@ -71,11 +71,28 @@ Node(빌드 스크립트) 컨텍스트이기 때문이다.
 
 ### `vite.config.ts`
 
-React 플러그인 하나만 등록하고, 경로 별칭을 `path.resolve`로 절대 경로화한다.
+React 플러그인과 함께 자체 제작한 `stripMokonaCdnFontImport` 플러그인을 등록하고, 경로
+별칭을 `path.resolve`로 절대 경로화한다. `stripMokonaCdnFontImport`는 `mokona-ui/dist/styles.css`
+안에 내장된 `@import url("https://cdn.jsdelivr.net/.../pretendard...")` 줄을 `transform`
+훅에서 정규식으로 제거한다 — 이 프로젝트가 `pretendard` 패키지로 이미 같은 폰트를
+self-hosting하고 있어서, CDN import를 그대로 두면 동일 폰트를 두 번(CDN + 로컬) 받아오게
+되기 때문이다. `enforce: "pre"`로 다른 플러그인(특히 CSS 처리)보다 먼저 실행되도록 강제한다.
 
 ```ts
+function stripMokonaCdnFontImport(): Plugin {
+  return {
+    name: "strip-mokona-cdn-font-import",
+    enforce: "pre",
+    transform(code, id) {
+      if (id.includes("mokona-ui") && id.endsWith("styles.css") && code.includes("cdn.jsdelivr.net")) {
+        return code.replace(/@import url\("https:\/\/cdn\.jsdelivr\.net\/[^"]*pretendard[^"]*"\);?/i, "");
+      }
+    },
+  };
+}
+
 export default defineConfig({
-  plugins: [react()],
+  plugins: [stripMokonaCdnFontImport(), react()],
   resolve: {
     alias: {
       "@t": path.resolve(__dirname, "./src/types"),
@@ -201,7 +218,7 @@ React Router의 클라이언트 사이드 라우팅 때문에 `/math/university/
 | `lucide-react` | 전 UI의 SVG 아이콘 (Sidebar, Header, NavTree, SearchPage, Drawer) |
 | `mafs` | 함수/기하 그래프 라이브러리 — 설치만 되어 있고 콘텐츠에서 아직 미사용 |
 | `mermaid` | 다이어그램 라이브러리 — 설치만 되어 있고 콘텐츠에서 아직 미사용 |
-| `mokona-ui` | 자체 UI 라이브러리 — 현재 컴포넌트 import 없음, CSS 변수만 `index.css`에 수동으로 옮겨 씀 |
+| `mokona-ui` | 자체 UI 라이브러리 — `main.tsx`에서 `styles.css`를 import해 CSS 변수(`--color-*` 등)를 공급. 컴포넌트(`Button`, `Card` 등)는 아직 프로젝트 코드에서 import되지 않음 |
 | `pretendard` | `main.tsx`에서 self-hosting하는 본문 폰트 |
 | `react`, `react-dom` | 프레임워크 |
 | `react-helmet-async` | 과거 SEO 메타태그용으로 추가됐으나 `useDocumentTitle` 훅으로 대체되어 현재 미사용 |

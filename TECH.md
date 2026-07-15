@@ -9,12 +9,15 @@
 
 ### `src/main.tsx`
 
-앱 진입점. 전역 CSS/폰트/KaTeX/하이라이팅 테마를 순서대로 import하고, `BrowserRouter` →
-`ThemeProvider` → `App` 순으로 감싼다. import 순서가 곧 CSS 우선순위이므로, Tailwind
-유틸리티가 폰트/KaTeX 기본 스타일을 덮어쓸 수 있도록 `index.css`를 가장 나중에 둔다.
+앱 진입점. 전역 CSS/폰트/mokona-ui/KaTeX/하이라이팅 테마를 순서대로 import하고,
+`BrowserRouter` → `ThemeProvider` → `App` 순으로 감싼다. import 순서가 곧 CSS
+우선순위이므로, Tailwind 유틸리티가 mokona-ui/폰트/KaTeX 기본 스타일을 덮어쓸 수 있도록
+`index.css`를 가장 나중에 둔다. `mokona-ui/styles.css`는 `:root`/`.dark`에 색상·그림자·
+간격 CSS 변수를 정의한다 — `src/index.css`는 더 이상 이 변수들을 직접 선언하지 않는다.
 
 ```tsx
 import "pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css";
+import "mokona-ui/styles.css";
 import "katex/dist/katex.min.css";
 import "highlight.js/styles/github-dark.css";
 import "./index.css";
