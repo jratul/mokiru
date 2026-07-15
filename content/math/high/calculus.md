@@ -8,7 +8,9 @@ level: "high"
 tags: ["미적분", "급수", "치환적분", "부분적분", "역삼각함수", "고등수학"]
 ---
 
-고등 미적분은 [수학Ⅱ](/math/high/math2)의 극한·미분·적분을 심화한다. 여기서 다루는 지수·로그·삼각함수의 미분과 급수의 수렴은 [대학 미적분학](/math/university/calculus)의 테일러급수·다변수미분의 직접적인 토대가 된다.
+## 왜 이 미적분을 배우는가
+
+[수학Ⅱ](/math/high/math2)에서 다항함수의 극한·미분·적분을 배웠다면, 여기서는 그 도구를 지수함수·로그함수·삼각함수까지 확장하고, "무한히 더한다"는 것이 정확히 무엇을 뜻하는지(급수)를 다룬다. 다항함수만으로는 세상의 변화를 다 담을 수 없다 — 인구 성장은 지수함수를, 소리와 진동은 삼각함수를 필요로 한다. 이 확장된 도구들이 [대학 미적분학](/math/university/calculus)의 테일러급수·다변수미분의 직접적인 토대가 된다.
 
 ---
 
@@ -16,13 +18,11 @@ tags: ["미적분", "급수", "치환적분", "부분적분", "역삼각함수",
 
 ### 수렴과 발산
 
-수열 $\{a_n\}$이 $n \to \infty$일 때 일정한 값 $L$에 한없이 가까워지면 **수렴(converge)**:
+수열 $\{a_n\}$이 $n \to \infty$일 때 하나의 값 $L$에 한없이 가까워지면 **수렴(converge)**한다고 하고, 그렇지 않으면 **발산(diverge)**한다고 한다(양의 무한대, 음의 무한대로 발산하거나, 특정 값 없이 진동하는 경우 모두 포함):
 
 $$
 \lim_{n \to \infty} a_n = L
 $$
-
-수렴하지 않으면 **발산(diverge)**: 양의 무한대($+\infty$), 음의 무한대($-\infty$), 또는 진동.
 
 **수렴의 사칙연산** ($\lim a_n = L$, $\lim b_n = M$이면):
 
@@ -30,7 +30,9 @@ $$
 \lim (a_n \pm b_n) = L \pm M, \quad \lim a_n b_n = LM, \quad \lim \frac{a_n}{b_n} = \frac{L}{M} \; (M \ne 0)
 $$
 
-**샌드위치 정리**: $a_n \leq b_n \leq c_n$이고 $\lim a_n = \lim c_n = L$이면 $\lim b_n = L$.
+이 성질들이 성립하는 이유는 직관적이다 — $a_n$이 $L$에, $b_n$이 $M$에 충분히 가까워지면, 그 합·차·곱·몫도 각각 $L\pm M$, $LM$, $L/M$에 가까워질 수밖에 없다(다만 이를 엄밀하게 증명하려면 [대학 실해석학](/math/university/real-analysis)의 $\varepsilon$-$\delta$ 논법이 필요하다).
+
+**샌드위치 정리**: 만약 $a_n \leq b_n \leq c_n$이고 양 끝의 수열 $a_n$, $c_n$이 모두 같은 값 $L$로 수렴한다면, 가운데 낀 $b_n$도 강제로 $L$로 수렴할 수밖에 없다 — $b_n$이 아무리 복잡해서 직접 극한을 계산하기 어려워도, 위아래로 잘 조여주는 수열만 찾으면 극한을 알아낼 수 있다는 강력한 도구다.
 
 ### 등비수열 $r^n$의 수렴·발산
 
@@ -42,15 +44,17 @@ $$
 | $r = -1$ | 진동 (발산) |
 | $r < -1$ | 진동·발산 |
 
+$|r|<1$일 때 0으로 수렴하는 이유는 직관적이다 — 1보다 작은 수를 계속 곱하면 점점 작아지기만 하기 때문이다. 반대로 $r=-1$일 때는 $-1, 1, -1, 1, \ldots$처럼 두 값 사이를 영원히 오가므로, 특정한 하나의 극한값에 정착하지 못해 발산으로 분류된다.
+
 **자주 쓰는 극한**:
 
 $$
 \lim_{n \to \infty} \frac{1}{n} = 0, \qquad \lim_{n \to \infty} \sqrt[n]{n} = 1, \qquad \lim_{n \to \infty} \left(1 + \frac{1}{n}\right)^n = e
 $$
 
-$$
-\lim_{n \to \infty} \frac{a_n}{b_n} \text{ 형태에서 최고차항으로 나눈다}
-$$
+마지막 극한은 특히 중요하다 — 이것이 자연상수 $e$의 정의 그 자체이며, "이자를 무한히 자주 복리로 계산하면 어떻게 되는가"라는 금융 문제에서 자연스럽게 등장한다.
+
+분수 형태의 극한 $\lim \dfrac{a_n}{b_n}$을 계산할 때는, 분자와 분모를 각각의 **최고차항으로 나누는** 것이 표준적인 전략이다 — 그러면 낮은 차수의 항들은 모두 0으로 수렴해 사라지고, 최고차항의 계수 비율만 남는다.
 
 ---
 
@@ -58,40 +62,39 @@ $$
 
 ### 무한급수의 수렴
 
+수열의 항을 무한히 더한 것이 **급수**다. 이를 엄밀하게 정의하려면, 유한한 $N$개까지의 합(**부분합** $S_N$)을 만들고, 그 부분합들이 이루는 새로운 수열의 극한을 취한다:
+
 $$
 \sum_{n=1}^{\infty} a_n = \lim_{N \to \infty} S_N, \quad S_N = \sum_{n=1}^{N} a_n
 $$
 
-**수렴의 필요조건**: $\sum a_n$이 수렴 $\implies$ $\lim_{n\to\infty} a_n = 0$.  
-역은 성립하지 않는다: $\sum \dfrac{1}{n}$은 $\dfrac{1}{n} \to 0$이지만 발산(조화급수).
+즉 "무한히 더한다"는 것은 사실 "유한 합의 극한을 구한다"는 뜻이다 — 무한급수도 결국 수열의 극한 문제로 환원된다.
+
+**수렴의 필요조건**: 급수 $\sum a_n$이 수렴한다면, 반드시 $\lim_{n\to\infty} a_n = 0$이어야 한다(더해지는 항 자체가 0으로 가지 않으면, 부분합이 계속 무한정 커지거나 요동칠 수밖에 없다). 하지만 **이 역은 성립하지 않는다** — $\sum \dfrac{1}{n}$(조화급수)은 각 항이 $0$으로 가는데도 전체 합은 발산한다는 것이 [대학 미적분학](/math/university/calculus)에서 증명된다. "항이 0으로 간다"는 것은 수렴을 위한 필요조건일 뿐, 충분조건이 아니라는 것이 자주 오해되는 지점이다.
 
 ### 등비급수
 
-첫째항 $a$, 공비 $r$인 등비급수:
+첫째항 $a$, 공비 $r$인 등비급수는 다음의 간단한 닫힌 형태를 갖는다:
 
 $$
 \sum_{n=1}^{\infty} ar^{n-1} = \frac{a}{1-r} \quad (|r| < 1)
 $$
 
-**유도**: $S = a + ar + ar^2 + \cdots$에서 $rS = ar + ar^2 + \cdots$이므로 $S - rS = a$, $S = \dfrac{a}{1-r}$.
+**유도**: $S = a + ar + ar^2 + \cdots$라 하고 양변에 $r$을 곱하면 $rS = ar + ar^2 + ar^3 + \cdots$가 된다. 두 식을 빼면($S - rS$) 오른쪽 대부분의 항이 상쇄되어 $S(1-r) = a$만 남고, 여기서 $S = \dfrac{a}{1-r}$을 얻는다 — "무한히 밀어서 빼면 유한한 답이 나온다"는 이 트릭이 등비급수 공식의 핵심이다.
 
-**예제.** $\displaystyle\sum_{n=1}^{\infty} \frac{3}{2^n}$
+**예제.** $\displaystyle\sum_{n=1}^{\infty} \frac{3}{2^n}$: 첫째항 $\dfrac{3}{2}$, 공비 $\dfrac{1}{2}$이므로 $S = \dfrac{3/2}{1 - 1/2} = 3$.
 
-첫째항 $= \dfrac{3}{2}$, 공비 $= \dfrac{1}{2}$이므로 $S = \dfrac{3/2}{1 - 1/2} = 3$
-
-**순환소수와 등비급수**: $0.\overline{3} = 0.333\ldots = \dfrac{3}{10} + \dfrac{3}{100} + \cdots = \dfrac{3/10}{1-1/10} = \dfrac{1}{3}$
+**순환소수와 등비급수**: $0.\overline{3} = 0.333\ldots$는 사실 $\dfrac{3}{10} + \dfrac{3}{100} + \dfrac{3}{1000} + \cdots$라는 등비급수다. 등비급수 공식을 적용하면 $\dfrac{3/10}{1-1/10} = \dfrac{1}{3}$ — 우리가 익히 알고 있는 "순환소수를 분수로 바꾸는 공식"이 사실은 등비급수의 특수한 경우였다는 것을 알 수 있다.
 
 ### 급수의 수렴 판정
 
-수학Ⅱ 수준에서는 등비급수가 주된 대상이지만, 대학에서는 비율판정, 적분판정, 비교판정 등을 배운다. 자세한 내용은 [대학 미적분학](/math/university/calculus) 참고.
+고등학교 수준에서는 등비급수가 주된 대상이지만, 일반적인 급수의 수렴 여부를 판정하는 더 정교한 도구들(비율판정, 적분판정, 비교판정 등)은 [대학 미적분학](/math/university/calculus)에서 다룬다.
 
 ---
 
 ## 미분법 심화
 
 ### 지수함수와 로그함수의 미분
-
-[수학Ⅱ](/math/high/math2)에서 다룬 공식을 복습하고 심화 적용:
 
 $$
 (e^x)' = e^x, \qquad (a^x)' = a^x \ln a
@@ -101,11 +104,15 @@ $$
 (\ln x)' = \frac{1}{x}, \qquad (\log_a x)' = \frac{1}{x \ln a}
 $$
 
-**로그 미분법**: 곱이나 복잡한 지수의 도함수를 구할 때 양변에 로그를 취한 후 미분한다.
+$e^x$의 도함수가 자기 자신이라는 사실은 $e$라는 상수가 "미분해도 변하지 않는" 특별한 밑으로 정의되었기 때문이다 — 이 성질 때문에 $e^x$는 미적분학 전반에서 가장 자연스러운 지수함수로 취급된다.
+
+**로그 미분법**: $y = x^x$처럼 밑과 지수 모두에 변수가 있는 함수는 일반적인 지수 미분 공식을 바로 적용할 수 없다. 이럴 때는 양변에 로그를 취해 지수를 계수로 끌어내린 다음 미분한다:
 
 $$
 y = x^x \implies \ln y = x \ln x \implies \frac{y'}{y} = \ln x + 1 \implies y' = x^x(\ln x + 1)
 $$
+
+로그가 "지수를 곱셈 앞자리로 끌어내리는" 성질을 이용해, 원래는 다루기 어려웠던 미분을 곱의 미분법으로 다룰 수 있는 형태로 바꾼 것이다.
 
 ### 삼각함수의 미분
 
@@ -117,49 +124,35 @@ $$
 (\sec x)' = \sec x \tan x, \quad (\csc x)' = -\csc x \cot x, \quad (\cot x)' = -\csc^2 x
 $$
 
-**연쇄 법칙 적용**:
-
-$$
-(\sin 2x)' = \cos 2x \cdot 2 = 2\cos 2x
-$$
-
-$$
-(e^{\sin x})' = e^{\sin x} \cdot \cos x
-$$
+**연쇄 법칙 적용**: $(\sin 2x)' = \cos 2x \cdot 2$, $(e^{\sin x})' = e^{\sin x} \cdot \cos x$처럼, 삼각함수가 다른 함수와 합성되어 있으면 항상 [수학Ⅱ](/math/high/math2)에서 배운 연쇄 법칙을 함께 적용한다.
 
 ### 역함수의 미분
 
-$y = f^{-1}(x)$이면:
+$y = f^{-1}(x)$의 도함수는 원래 함수 $f$의 도함수로부터 역산할 수 있다:
 
 $$
 \{f^{-1}(x)\}' = \frac{1}{f'(f^{-1}(x))}
 $$
 
+직관적으로, 원래 함수의 그래프를 $y=x$에 대해 대칭시킨 것이 역함수의 그래프이므로, 접선의 기울기도 서로 "역수" 관계가 된다.
+
 **역삼각함수의 도함수**:
 
 $$
-(\arcsin x)' = \frac{1}{\sqrt{1-x^2}} \quad (|x| < 1)
+(\arcsin x)' = \frac{1}{\sqrt{1-x^2}} \quad (|x| < 1), \qquad (\arccos x)' = -\frac{1}{\sqrt{1-x^2}}, \qquad (\arctan x)' = \frac{1}{1+x^2}
 $$
 
-$$
-(\arccos x)' = -\frac{1}{\sqrt{1-x^2}} \quad (|x| < 1)
-$$
-
-$$
-(\arctan x)' = \frac{1}{1+x^2}
-$$
-
-**유도 예시** ($y = \arcsin x$): $\sin y = x$이고 $\cos y \cdot y' = 1$이므로 $y' = \dfrac{1}{\cos y} = \dfrac{1}{\sqrt{1-\sin^2 y}} = \dfrac{1}{\sqrt{1-x^2}}$
+**유도 예시** ($y = \arcsin x$): 양변을 삼각함수 형태로 바꾸면 $\sin y = x$다. 양변을 $x$로 음함수 미분하면 $\cos y \cdot y' = 1$, 즉 $y' = \dfrac{1}{\cos y}$. 이제 $\cos y$를 $x$로 표현해야 하는데, $\sin^2 y + \cos^2 y = 1$에서 $\cos y = \sqrt{1-\sin^2 y} = \sqrt{1-x^2}$($\arcsin$의 정의역에서 $\cos y \geq 0$이므로 양의 제곱근)이므로 최종적으로 $y' = \dfrac{1}{\sqrt{1-x^2}}$.
 
 ### 매개변수 미분
 
-$x = f(t)$, $y = g(t)$로 나타낸 곡선에서:
+$x = f(t)$, $y = g(t)$처럼 두 변수가 모두 매개변수 $t$로 표현된 곡선에서는, 연쇄 법칙을 거꾸로 이용해 $\dfrac{dy}{dx}$를 구한다:
 
 $$
 \frac{dy}{dx} = \frac{dy/dt}{dx/dt} = \frac{g'(t)}{f'(t)}
 $$
 
-**예**: 원 $x = \cos t$, $y = \sin t$에서 $\dfrac{dy}{dx} = \dfrac{\cos t}{-\sin t} = -\cot t$
+**예**: 원 $x = \cos t$, $y = \sin t$에서 $\dfrac{dy}{dx} = \dfrac{\cos t}{-\sin t} = -\cot t$ — 원 위의 각 점에서 접선의 기울기가 반지름과 항상 수직이라는 기하학적 사실이 이 계산으로 확인된다.
 
 ---
 
@@ -167,27 +160,25 @@ $$
 
 ### 치환적분
 
-$u = g(x)$로 치환 ($du = g'(x)\,dx$):
+$u = g(x)$로 치환하면($du = g'(x)\,dx$), 복잡한 합성함수의 적분을 더 단순한 형태로 바꿀 수 있다:
 
 $$
 \int f(g(x)) g'(x)\,dx = \int f(u)\,du
 $$
 
+이는 연쇄 법칙을 적분 방향으로 거꾸로 적용하는 것이다 — 미분에서 안쪽 함수의 도함수가 "따라 나오는" 것처럼, 적분에서는 그 도함수가 있어야 원래대로 되돌릴 수 있다.
+
 **자주 쓰는 패턴**:
 
 $$
-\int \frac{f'(x)}{f(x)}\,dx = \ln|f(x)| + C
+\int \frac{f'(x)}{f(x)}\,dx = \ln|f(x)| + C, \qquad \int f(x)^n f'(x)\,dx = \frac{f(x)^{n+1}}{n+1} + C \quad (n \ne -1)
 $$
 
+**예제.** $\displaystyle\int \tan x\,dx = \int \dfrac{\sin x}{\cos x}\,dx$. $u = \cos x$로 치환하면 $du = -\sin x\,dx$이므로:
+
 $$
-\int f(x)^n f'(x)\,dx = \frac{f(x)^{n+1}}{n+1} + C \quad (n \ne -1)
+= -\int \frac{du}{u} = -\ln|u| + C = -\ln|\cos x| + C = \ln|\sec x| + C
 $$
-
-**예제.** $\displaystyle\int \tan x\,dx$
-
-$= \displaystyle\int \dfrac{\sin x}{\cos x}\,dx$. $u = \cos x$, $du = -\sin x\,dx$로 놓으면
-
-$= -\displaystyle\int \dfrac{du}{u} = -\ln|\cos x| + C = \ln|\sec x| + C$
 
 ### 부분적분
 
@@ -195,27 +186,35 @@ $$
 \int u\,dv = uv - \int v\,du
 $$
 
-**LIATE 순서**: **L**og > **I**nverse trig > **A**lgebraic > **T**rig > **E**xponential
+이 공식은 곱의 미분법 $(uv)' = u'v + uv'$를 적분한 것에서 나온다 — 두 함수의 곱을 직접 적분하기 어려울 때, 한쪽을 미분하고 다른 쪽을 적분하는 것으로 문제를 "교환"하는 전략이다.
 
-→ 왼쪽 것을 $u$로, 오른쪽 것을 $dv$로 설정.
+**LIATE 순서**: **L**og(로그) > **I**nverse trig(역삼각) > **A**lgebraic(다항) > **T**rig(삼각) > **E**xponential(지수) — 이 순서에서 앞쪽에 있는 함수를 $u$로, 뒤쪽에 있는 함수를 $dv$로 선택하면 대체로 계산이 쉬워진다. 이 순서의 논리는, 미분했을 때 더 단순해지는 함수(로그, 역삼각)를 $u$로 삼아 미분으로 "소모"시키고, 적분해도 크게 복잡해지지 않는 함수(지수, 삼각)를 $dv$로 삼아 적분을 반복해도 다루기 쉽게 유지하는 것이다.
 
-**예제.** $\displaystyle\int \ln x\,dx$
+**예제.** $\displaystyle\int \ln x\,dx$: $u = \ln x$, $dv = dx$로 두면 $du = \dfrac{1}{x}dx$, $v = x$이므로:
 
-$u = \ln x$, $dv = dx$ → $du = \dfrac{1}{x}dx$, $v = x$
+$$
+= x\ln x - \int x \cdot \frac{1}{x}\,dx = x\ln x - \int 1\,dx = x\ln x - x + C
+$$
 
-$= x\ln x - \displaystyle\int x \cdot \dfrac{1}{x}\,dx = x\ln x - x + C$
-
-**반복 부분적분**: $\displaystyle\int x^2 e^x\,dx$처럼 다항과 지수의 곱은 두 번 부분적분.
+**반복 부분적분**: $\displaystyle\int x^2 e^x\,dx$처럼 다항식과 지수함수의 곱은, 한 번의 부분적분으로는 다항식의 차수가 하나만 줄어들 뿐이므로 다항식이 상수가 될 때까지 여러 번 반복해야 한다.
 
 ### 삼각치환
 
-$\sqrt{a^2 - x^2}$ → $x = a\sin\theta$  
-$\sqrt{a^2 + x^2}$ → $x = a\tan\theta$  
-$\sqrt{x^2 - a^2}$ → $x = a\sec\theta$
+근호 안의 식의 형태에 따라 표준적인 치환이 정해져 있다:
 
-**예제.** $\displaystyle\int \dfrac{1}{\sqrt{1-x^2}}\,dx$
+$$
+\sqrt{a^2 - x^2} \to x = a\sin\theta, \qquad \sqrt{a^2 + x^2} \to x = a\tan\theta, \qquad \sqrt{x^2 - a^2} \to x = a\sec\theta
+$$
 
-$x = \sin\theta$, $dx = \cos\theta\,d\theta$로 치환하면 $\displaystyle\int \dfrac{\cos\theta}{\cos\theta}\,d\theta = \theta + C = \arcsin x + C$
+각 치환은 삼각함수의 피타고라스 항등식($\sin^2+\cos^2=1$, $1+\tan^2=\sec^2$, $\sec^2-1=\tan^2$)을 이용해 근호 안을 완전제곱으로 만들어 근호를 없애는 원리다.
+
+**예제.** $\displaystyle\int \dfrac{1}{\sqrt{1-x^2}}\,dx$: $x = \sin\theta$, $dx = \cos\theta\,d\theta$로 치환하면 $\sqrt{1-x^2} = \sqrt{1-\sin^2\theta} = \cos\theta$가 되어:
+
+$$
+\int \frac{\cos\theta}{\cos\theta}\,d\theta = \int 1\,d\theta = \theta + C = \arcsin x + C
+$$
+
+(마지막 단계는 $x=\sin\theta$이므로 $\theta = \arcsin x$로 되돌린 것이다.) 흥미롭게도 이 결과는 앞서 역삼각함수 미분에서 구한 $(\arcsin x)'$의 역연산과 정확히 일치한다 — 미분과 적분이 서로 역연산이라는 미적분학의 기본 정리가 여기서도 확인된다.
 
 ---
 
@@ -225,9 +224,9 @@ $x = \sin\theta$, $dx = \cos\theta\,d\theta$로 치환하면 $\displaystyle\int 
 
 > **풀이**
 >
-> 첫째항 $a = \dfrac{3}{2}$, 공비 $r = \dfrac{1}{2}$인 등비급수
+> 첫째항 $a = \dfrac{3}{2}$, 공비 $r = \dfrac{1}{2}$인 등비급수이므로:
 >
-> $S = \dfrac{3/2}{1 - 1/2} = \dfrac{3/2}{1/2} = 3$
+> $$S = \frac{3/2}{1 - 1/2} = \frac{3/2}{1/2} = 3$$
 
 ---
 
@@ -235,9 +234,9 @@ $x = \sin\theta$, $dx = \cos\theta\,d\theta$로 치환하면 $\displaystyle\int 
 
 > **풀이**
 >
-> $u = \ln x$로 놓으면 $du = \dfrac{1}{x}\,dx$
+> $u = \ln x$로 치환하면 $du = \dfrac{1}{x}\,dx$이므로 적분이 그대로 $u\,du$의 형태로 바뀐다:
 >
-> $\displaystyle\int u\,du = \dfrac{u^2}{2} + C = \dfrac{(\ln x)^2}{2} + C$
+> $$\int u\,du = \frac{u^2}{2} + C = \frac{(\ln x)^2}{2} + C$$
 
 ---
 
@@ -245,9 +244,13 @@ $x = \sin\theta$, $dx = \cos\theta\,d\theta$로 치환하면 $\displaystyle\int 
 
 > **풀이**
 >
-> $u = x$, $dv = \sin x\,dx$ → $du = dx$, $v = -\cos x$
+> 부분적분에서 $u = x$, $dv = \sin x\,dx$로 두면 $du = dx$, $v = -\cos x$다.
 >
-> $\Big[-x\cos x\Big]_0^{\pi} + \displaystyle\int_0^{\pi} \cos x\,dx = \pi + \Big[\sin x\Big]_0^{\pi} = \pi + 0 = \pi$
+> $$\int_0^\pi x\sin x\,dx = \Big[-x\cos x\Big]_0^{\pi} + \int_0^{\pi} \cos x\,dx$$
+>
+> 첫 항을 계산하면 $-\pi\cos\pi - (-0\cdot\cos 0) = -\pi(-1) - 0 = \pi$. 둘째 항은 $\Big[\sin x\Big]_0^\pi = 0 - 0 = 0$.
+>
+> $$= \pi + 0 = \pi$$
 
 ---
 
@@ -255,11 +258,15 @@ $x = \sin\theta$, $dx = \cos\theta\,d\theta$로 치환하면 $\displaystyle\int 
 
 > **풀이**
 >
-> 로그 미분법: $\ln y = x\ln x$
+> 로그 미분법을 적용한다. 양변에 자연로그를 취하면 $\ln y = x\ln x$.
 >
-> 양변을 $x$로 미분: $\dfrac{y'}{y} = \ln x + x \cdot \dfrac{1}{x} = \ln x + 1$
+> 양변을 $x$로 미분한다(좌변은 음함수 미분, 우변은 곱의 미분법):
 >
-> $y' = y(\ln x + 1) = x^x(\ln x + 1)$
+> $$\frac{y'}{y} = \ln x + x \cdot \frac{1}{x} = \ln x + 1$$
+>
+> 양변에 $y$를 곱해 정리한다:
+>
+> $$y' = y(\ln x + 1) = x^x(\ln x + 1)$$
 
 ---
 
@@ -267,10 +274,16 @@ $x = \sin\theta$, $dx = \cos\theta\,d\theta$로 치환하면 $\displaystyle\int 
 
 > **풀이**
 >
-> $\dfrac{1}{n^2-1} = \dfrac{1}{(n-1)(n+1)} = \dfrac{1}{2}\left(\dfrac{1}{n-1} - \dfrac{1}{n+1}\right)$ (부분분수 분해)
+> 먼저 일반항을 부분분수로 분해한다: $\dfrac{1}{n^2-1} = \dfrac{1}{(n-1)(n+1)} = \dfrac{1}{2}\left(\dfrac{1}{n-1} - \dfrac{1}{n+1}\right)$.
 >
-> 부분합 $S_N = \dfrac{1}{2}\left[\left(1 - \dfrac{1}{3}\right) + \left(\dfrac{1}{2} - \dfrac{1}{4}\right) + \left(\dfrac{1}{3} - \dfrac{1}{5}\right) + \cdots\right]$
+> 이 형태는 이웃한 항들이 서로 상쇄되는 **망원급수(telescoping series)**다. 부분합을 나열해보자:
 >
-> 망원급수 정리하면 $S_N = \dfrac{1}{2}\left(1 + \dfrac{1}{2} - \dfrac{1}{N} - \dfrac{1}{N+1}\right)$
+> $$S_N = \frac{1}{2}\left[\left(1 - \frac{1}{3}\right) + \left(\frac{1}{2} - \frac{1}{4}\right) + \left(\frac{1}{3} - \frac{1}{5}\right) + \cdots + \left(\frac{1}{N-1}-\frac{1}{N+1}\right)\right]$$
 >
-> $\therefore \displaystyle\sum_{n=2}^{\infty} \dfrac{1}{n^2-1} = \dfrac{1}{2} \times \dfrac{3}{2} = \dfrac{3}{4}$
+> 중간의 대부분의 항이 앞뒤로 상쇄되고, 맨 앞의 두 항($1$, $\frac12$)과 맨 뒤의 두 항($-\frac{1}{N}$, $-\frac{1}{N+1}$)만 남는다:
+>
+> $$S_N = \frac{1}{2}\left(1 + \frac{1}{2} - \frac{1}{N} - \frac{1}{N+1}\right)$$
+>
+> $N\to\infty$이면 뒤의 두 항이 0으로 사라지므로:
+>
+> $$\sum_{n=2}^{\infty} \frac{1}{n^2-1} = \frac{1}{2}\left(1+\frac{1}{2}\right) = \frac{1}{2} \times \frac{3}{2} = \frac{3}{4}$$
