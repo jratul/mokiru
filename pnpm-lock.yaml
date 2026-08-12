@@ -42,8 +42,8 @@ importers:
         specifier: ^11.14.0
         version: 11.14.0
       mokona-ui:
-        specifier: ^0.0.12
-        version: 0.0.12(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+        specifier: ^0.0.13
+        version: 0.0.13(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       pretendard:
         specifier: ^1.3.9
         version: 1.3.9
@@ -2838,8 +2838,8 @@ packages:
   mlly@1.8.2:
     resolution: {integrity: sha512-d+ObxMQFmbt10sretNDytwt85VrbkhhUA/JBGm1MPaWJ65Cl4wOgLaB1NYvJSZ0Ef03MMEU/0xpPMXUIQ29UfA==}
 
-  mokona-ui@0.0.12:
-    resolution: {integrity: sha512-x2eChVvXbbA0I6oIsLUcYOrYDI1JlqEkGUQWhgkX0eOm5Xm1Rvrh7OSgeAwctpO5Hw3ulOu5Rzjf7tmF6NYsBQ==}
+  mokona-ui@0.0.13:
+    resolution: {integrity: sha512-VWz0t7fAygelYP6iRj3IfZmJ2ek+RYG4fTfZc27mJJzLWwhJz85HrZmm5ZCwk6kcyudljCBCUTdt0MQBHscyDQ==}
     peerDependencies:
       react: ^17 || ^18 || ^19
       react-dom: ^17 || ^18 || ^19
@@ -6890,7 +6890,7 @@ snapshots:
       pkg-types: 1.3.1
       ufo: 1.6.3
 
-  mokona-ui@0.0.12(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4):
+  mokona-ui@0.0.13(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4):
     dependencies:
       '@radix-ui/react-accordion': 1.2.12(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@radix-ui/react-avatar': 1.1.11(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
